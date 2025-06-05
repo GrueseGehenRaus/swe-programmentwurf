@@ -160,26 +160,286 @@ Mitarbeiter die Besichtigung durchführen kann.
 
 == Materialbestellungen für obigen Auftrag durchführen
 
-#figure(
-  pseudocode-list[
-    + *START* _Materialbestellung für Auftrag_
-    + *FÜHRE* Auftrag aus System abrufen *AUS*
-    + *FÜHRE* Erstelle allgemeine Bestellliste *AUS*
-    + *FÜHRE* Materialbedarf bestimmen *AUS*
-    + *FÜR JEDES* Material *IN* Materialbedarf
-      + *FÜHRE* Bestimme Bestand in Lager *AUS*
-      + *FALLS* Lagerbestand *KLEINER ALS* Benötigte Menge
-        + *FÜHRE* Füge zu allgemeiner Bestellliste hinzu *AUS*
-    + *FÜR JEDES* Material *IN* allgemeine Bestellliste
-      + *FÜHRE* Ermittle günstigsten Lieferanten *AUS*
-      + *FALLS* Keine Bestellliste für diesen Lieferanten
-        + *FÜHRE* Erstelle eine Bestellliste für diesen Lieferanten *AUS*
-      + *FÜHRE* Füge Material zu Bestellliste von Lieferanten hinzu *AUS*
-    + *FÜR JEDE* Bestellliste
-      + *FÜHRE* Erstelle Bestellung *AUS*
-      + *FÜHRE* Sende Bestellung an Lieferanten *AUS*
-    + *ENDE* _Materialbestellung für Auftrag_
-  ],
+#pseudocode-list[
+
+  + *BEGINNE* Materialbestellung für Auftrag
+
+  + *FÜHRE* Auftrag aus System abrufen *AUS*
+
+  + *FÜHRE* Erstelle allgemeine Bestellliste *AUS*
+
+  + *FÜHRE* Materialbedarf bestimmen *AUS*
+
+  + *FÜR JEDES* Material *IN* Materialbedarf
+
+    + *FÜHRE* Bestimme Bestand in Lager *AUS*
+
+    + *WENN* Lagerbestand *KLEINER ALS* Benötigte Menge
+
+      + *FÜHRE* Füge zu allgemeiner Bestellliste hinzu *AUS*
+
+    + *ENDE-WENN*
+
+  + *FÜR JEDES* Material *IN* allgemeine Bestellliste
+
+    + *FÜHRE* Ermittle günstigsten Lieferanten *AUS*
+
+    + *WENN* Keine Bestellliste für diesen Lieferanten
+
+      + *FÜHRE* Erstelle eine Bestellliste für diesen Lieferanten *AUS*
+
+    + *ENDE-WENN*
+
+    + *FÜHRE* Füge Material zu Bestellliste von Lieferanten hinzu *AUS*
+
+  + *FÜR JEDE* Bestellliste
+
+    + *FÜHRE* Erstelle Bestellung *AUS*
+
+    + *FÜHRE* Sende Bestellung an Lieferanten *AUS*
+
+  + *ENDE* Materialbestellung für Auftrag
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Auftrag aus System abrufen
+
+  + *SOLANGE* Auftrag nicht gefunden
+
+    + Nächsten Auftrag mit gesuchter Identifikationsnummer abgleichen
+
+    + *WENN* Identifikationsnummern gleich sind
+
+      + Gebe gefundenen Auftrag zurück
+
+    + *ELSE WENN* alle Aufträge durchsucht
+
+      + Fehlermeldung anzeigen
+
+      + Vorgang beenden
+
+    + *ENDE-WENN*
+
+  + *ENDE* Auftrag aus System abrufen
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Erstelle allgemeine Bestellliste
+
+  + Eindeutige Identifikation des Auftrags auslesen
+
+  + Bestellliste erzeugen
+
+  + Referenz auf Auftrag der Bestellliste hinzufügen
+
+  + Bestellliste im Datenbanksystem speichern
+
+  + *ENDE* Erstelle allgemeine Bestellliste
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Materialbedarf bestimmen
+
+  + Anforderungen des Auftrags untersuchen
+
+  + Liste für Materialien erzeugen
+
+  + *FÜR JEDE* Anforderung
+
+    + Benötigte Materialien bestimmen
+
+    + Materialien in die Liste aufnehmen
+
+  + Liste mit allen benötigten Materialien zurückgeben
+
+  + *ENDE* Materialbedarf bestimmen
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Bestimme Bestand in Lager
+
+  + *FÜR JEDEN* Artikel *IN* Bestellliste
+
+    + Zähler auf 0 setzen
+
+    + *FÜR JEDEN* Artikel *IN* Lager
+
+      + *WENN* Artikel im Lager mit dem Artikel aus der Bestellliste übereinstimmt
+
+        + Zähler um 1 erhöhen
+
+      + *ENDE-WENN*
+
+    + Zähler für den Artikel als Bestand speichern
+
+  + *ENDE* Bestimme Bestand in Lager
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Füge zu allgemeiner Bestellliste hinzu
+
+  + Kalkuliere noch benötigte Materialanzahl
+
+  + Füge benötigte Material zur Bestellliste hinzu
+
+  + *ENDE* Füge zu allgemeiner Bestellliste hinzu
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Ermittle günstigsten Lieferanten
+
+  + Nach Lieferanten recherchieren
+
+  + *FÜR JEDEN* Lieferanten
+
+    + *WENN* Lieferant das gesuchte Material hat
+
+      + *WENN* Lieferant das bis jetzt günstigste Angebot hat
+
+        + Lieferant merken
+
+      + *ENDE-WENN*
+
+    + *ENDE-WENN*
+
+  + Zuletzt gemerkten Lieferanten als günstigsten Lieferanten speichern
+
+  + *ENDE* Ermittle günstigsten Lieferanten
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Erstelle eine Bestellliste für diesen Lieferanten
+
+  + Datenbanksystem für Informationen über Lieferant anfragen
+
+  + *WENN* Lieferant nicht im Datenbanksystem
+
+    + "Nicht gefunden"-Fehlermeldung anzeigen
+
+    + Programmablauf stoppen
+
+  + *ENDE-WENN*
+
+  + Eindeutige Identifikation des Lieferanten auslesen
+
+  + Neue Bestellliste erzeugen
+
+  + Referenz zum Lieferanten hinzufügen
+
+  + Bestellliste im Datenbanksystem abspeichern
+
+  + *ENDE* Erstelle eine Bestellliste für diesen Lieferanten
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Füge Material zu Bestellliste von Lieferanten hinzu
+
+  + Datenbanksystem für Informationen über Lieferant anfragen
+
+  + *WENN* Lieferant nicht im Datenbanksystem
+
+    + "Nicht gefunden"-Fehlermeldung anzeigen
+
+    + Programmablauf stoppen
+
+  + *ENDE-WENN*
+
+  + Eindeutige Identifikation des Lieferanten auslesen
+
+  + Bestellliste des Lieferanten im Datenbanksystem finden
+
+  + *WENN* Bestellliste nicht gefunden werden konnte
+
+    + "Datenkorruption"-Fehlermeldung anzeigen
+
+    + Programmablauf stoppen
+
+  + *ENDE-WENN*
+
+  + Material zur Bestellliste hinzufügen
+
+  + *ENDE* Füge Material zu Bestellliste von Lieferanten hinzu
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Erstelle Bestellung
+
+  + Bestellung erzeugen
+
+  + *FÜR JEDEN* Artikel *IN* Bestellliste
+
+    + Artikel der Bestellung hinzufügen mit Quantität
+
+  + Firmenangaben tätigen
+
+  + Lieferadresse hinzufügen
+
+  + Rechnungsadresse hinzufügen
+
+  + Email und Telefonnummer hinzufügen
+
+  + *ENDE* Erstelle Bestellung
+
+]
+
+
+#pseudocode-list[
+
+  + *BEGINNE* Sende Bestellung an Lieferanten
+
+  + Bestellungsanfrage an Lieferanten stellen
+
+  + Setze Status der Bestellung auf "Angefragt"
+
+  + *WARTE* auf Antwort des Lieferanten
+
+  + *WENN* Bestellungsanfrage abgelehnt wird
+
+    + Setze Status der Bestellung auf "Abgelehnt"
+
+    + Prozess neu ausführen
+
+  + *ELSE*
+
+    + Setze Status der Bestellung auf "Bestellt"
+
+    + *WARTE* bis Bestellung geliefert wird
+
+    + Setze Status der Bestellung auf "Abgeschlossen"
+
+  + *ENDE-WENN*
+
+  + *ENDE* Sende Bestellung an Lieferanten
+
+]
+
   supplement: "Pseudocode",
   caption: [Materialbestellung für Auftrag],
 )
