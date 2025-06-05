@@ -160,6 +160,14 @@ Mitarbeiter die Besichtigung durchführen kann.
 
 == Materialbestellungen für obigen Auftrag durchführen
 
+Das Szenario "Materialbestellungen für obigen Auftrag durchführen" beschreibt den Prozess, wie die Materialanfragen mit dem System anfänglich aufgebaut und schlussendlich versendet werden. 
+
+Auch hier wurde vorerst Pseudocode erstellt, um so die  Erstellung des Diagramms zu vereinfachen. 
+Aufgrund von Limitation von Visual Paradigm wurden die einzelnen Aktivitäten mit orangenen Kästchen versehen, um die jeweiligen Objektinputs und -outputs darzustellen.
+Zur Übersichtlichkeit wurden einzelne Subfunktionalitäten genauso wie die hier aufgeführten Pseudocode-Funktionen in separaten Diagrammen verfeinert und im Hauptdiagramm mit einer Aktivität zusammengefasst.
+
+An einigen Coderegionen stellte sich heraus, dass diese Segmente in ihrer Übersetzung ins Aktivitätsdiagramm etwas unübersichtlich oder unverständlich erschienen. Dementsprechend wurden in dem finalen Diagramm kleine Änderungen getätigt, die neben den hier präsentierten Pseudocode ebenfalls einmal annotiert wurden.
+
 #pseudocode-list[
 
   + *BEGINNE* Materialbestellung für Auftrag
@@ -176,13 +184,13 @@ Mitarbeiter die Besichtigung durchführen kann.
 
     + *WENN* Lagerbestand *KLEINER ALS* Benötigte Menge
 
-      + *FÜHRE* Füge zu allgemeiner Bestellliste hinzu *AUS*
+      + *FÜHRE* Füge zu allgemeinen Bestellliste hinzu *AUS*
 
     + *ENDE-WENN*
 
   + *FÜR JEDES* Material *IN* allgemeine Bestellliste
 
-    + *FÜHRE* Ermittle günstigsten Lieferanten *AUS*
+    + *FÜHRE* Ermittel günstigsten Lieferanten *AUS*
 
     + *WENN* Keine Bestellliste für diesen Lieferanten
 
@@ -290,154 +298,173 @@ Im Aktivitätsdiagramm wurden die Funktionen "Ermittle günstigsten Lieferanten"
 ]
 
 
-#pseudocode-list[
+#figure(
+  pseudocode-list[
 
-  + *BEGINNE* Füge zu allgemeiner Bestellliste hinzu
+    + *BEGINNE* Füge zu allgemeinen Bestellliste hinzu
 
-  + Kalkuliere noch benötigte Materialanzahl
+    + Kalkuliere noch benötigte Materialanzahl
 
-  + Füge benötigte Material zur Bestellliste hinzu
+    + Füge benötigte Material zur Bestellliste hinzu
 
-  + *ENDE* Füge zu allgemeiner Bestellliste hinzu
+    + *ENDE* Füge zu allgemeinen Bestellliste hinzu
 
-]
+  ],
+  caption: [Füge zu allgemeinen Bestellliste hinzu],
+  supplement: "Pseudocode",
+)
 
+#figure(
+  pseudocode-list[
 
-#pseudocode-list[
+    + *BEGINNE* Ermittel günstigsten Lieferanten
 
-  + *BEGINNE* Ermittle günstigsten Lieferanten
+    + Nach Lieferanten recherchieren
 
-  + Nach Lieferanten recherchieren
+    + *FÜR JEDEN* Lieferanten
 
-  + *FÜR JEDEN* Lieferanten
+      + *WENN* Lieferant das gesuchte Material hat
 
-    + *WENN* Lieferant das gesuchte Material hat
+        + *WENN* Lieferant das bis jetzt günstigste Angebot hat
 
-      + *WENN* Lieferant das bis jetzt günstigste Angebot hat
+          + Lieferant merken
 
-        + Lieferant merken
+        + *ENDE-WENN*
 
       + *ENDE-WENN*
 
+    + Zuletzt gemerkten Lieferanten als günstigsten Lieferanten speichern
+
+    + *ENDE* Ermittel günstigsten Lieferanten
+  ],
+  caption: [Ermittel günstigsten Lieferanten],
+  supplement: "Pseudocode",
+)
+
+#figure(
+  pseudocode-list[
+
+    + *BEGINNE* Erstelle eine Bestellliste für diesen Lieferanten
+
+    + Datenbanksystem für Informationen über Lieferant anfragen
+
+    + *WENN* Lieferant nicht im Datenbanksystem
+
+      + "Nicht gefunden"-Fehlermeldung anzeigen
+
+      + Programmablauf stoppen
+
     + *ENDE-WENN*
 
-  + Zuletzt gemerkten Lieferanten als günstigsten Lieferanten speichern
+    + Eindeutige Identifikation des Lieferanten auslesen
 
-  + *ENDE* Ermittle günstigsten Lieferanten
+    + Neue Bestellliste erzeugen
 
-]
+    + Referenz zum Lieferanten hinzufügen
 
+    + Bestellliste im Datenbanksystem abspeichern
 
-#pseudocode-list[
+    + *ENDE* Erstelle eine Bestellliste für diesen Lieferanten
 
-  + *BEGINNE* Erstelle eine Bestellliste für diesen Lieferanten
-
-  + Datenbanksystem für Informationen über Lieferant anfragen
-
-  + *WENN* Lieferant nicht im Datenbanksystem
-
-    + "Nicht gefunden"-Fehlermeldung anzeigen
-
-    + Programmablauf stoppen
-
-  + *ENDE-WENN*
-
-  + Eindeutige Identifikation des Lieferanten auslesen
-
-  + Neue Bestellliste erzeugen
-
-  + Referenz zum Lieferanten hinzufügen
-
-  + Bestellliste im Datenbanksystem abspeichern
-
-  + *ENDE* Erstelle eine Bestellliste für diesen Lieferanten
-
-]
+  ],
+  caption: [Erstelle eine Bestellliste für diesen Lieferanten],
+  supplement: "Pseudocode",
+)
 
 Die Routine "Erstelle eine Bestellliste für diesen Lieferanten" wurde aufgrund der Struktur des Aktivitätsdiagramms nicht weiter verfolgt, da dadurch die Übersichtlichkeit und Verständlichkeit erheblich eingeschränkt werden würde.
 
-#pseudocode-list[
+#figure(
+  pseudocode-list[
 
-  + *BEGINNE* Füge Material zu Bestellliste von Lieferanten hinzu
+    + *BEGINNE* Füge Material zu Bestellliste von Lieferanten hinzu
 
-  + Datenbanksystem für Informationen über Lieferant anfragen
+    + Datenbanksystem für Informationen über Lieferant anfragen
 
-  + *WENN* Lieferant nicht im Datenbanksystem
+    + *WENN* Lieferant nicht im Datenbanksystem
 
-    + "Nicht gefunden"-Fehlermeldung anzeigen
+      + "Nicht gefunden"-Fehlermeldung anzeigen
 
-    + Programmablauf stoppen
+      + Programmablauf stoppen
 
-  + *ENDE-WENN*
+    + *ENDE-WENN*
 
-  + Eindeutige Identifikation des Lieferanten auslesen
+    + Eindeutige Identifikation des Lieferanten auslesen
 
-  + Bestellliste des Lieferanten im Datenbanksystem finden
+    + Bestellliste des Lieferanten im Datenbanksystem finden
 
-  + *WENN* Bestellliste nicht gefunden werden konnte
+    + *WENN* Bestellliste nicht gefunden werden konnte
 
-    + "Datenkorruption"-Fehlermeldung anzeigen
+      + "Datenkorruption"-Fehlermeldung anzeigen
 
-    + Programmablauf stoppen
+      + Programmablauf stoppen
 
-  + *ENDE-WENN*
+    + *ENDE-WENN*
 
-  + Material zur Bestellliste hinzufügen
+    + Material zur Bestellliste hinzufügen
 
-  + *ENDE* Füge Material zu Bestellliste von Lieferanten hinzu
+    + *ENDE* Füge Material zu Bestellliste von Lieferanten hinzu
 
-]
-
+  ],
+  caption: [Füge Material zu Bestellliste von Lieferanten hinzu],
+  supplement: "Pseudocode",
+)
 
 TODO \@SINAN: Im Diagramm "Bestellung erstellen" in "Bestellung erzeugen" ändern
 
-#pseudocode-list[
+#figure(
+  pseudocode-list[
 
-  + *BEGINNE* Erstelle Bestellung
+    + *BEGINNE* Erstelle Bestellung
 
-  + Bestellung erzeugen
+    + Bestellung erzeugen
 
-  + Firmenangaben tätigen
+    + Firmenangaben tätigen
 
-  + Rechnungsadresse hinzufügen
+    + Rechnungsadresse hinzufügen
 
-  + Lieferadresse hinzufügen
+    + Lieferadresse hinzufügen
 
-  + Email hinzufügen
+    + Email hinzufügen
 
-  + Telefonnummer hinzufügen
+    + Telefonnummer hinzufügen
 
-  + *FÜR JEDEN* Artikel *IN* Bestellliste
+    + *FÜR JEDEN* Artikel *IN* Bestellliste
 
-    + Artikel der Bestellung hinzufügen mit Quantität
+      + Artikel der Bestellung hinzufügen mit Quantität
 
-  + *ENDE* Erstelle Bestellung
+    + *ENDE* Erstelle Bestellung
 
-]
+  ],
+  caption: [Erstelle Bestellung],
+  supplement: "Pseudocode",
+)
 
+#figure(
+  pseudocode-list[
 
-#pseudocode-list[
+    + *BEGINNE* Sende Bestellung an Lieferanten
 
-  + *BEGINNE* Sende Bestellung an Lieferanten
+    + Bestellungsanfrage an Lieferanten stellen
 
-  + Bestellungsanfrage an Lieferanten stellen
+    + Setze Status der Bestellung auf "Angefragt"
 
-  + Setze Status der Bestellung auf "Angefragt"
+    + *WARTE* auf Antwort des Lieferanten
 
-  + *WARTE* auf Antwort des Lieferanten
+    + *WENN* Bestellungsanfrage abgelehnt wird
 
-  + *WENN* Bestellungsanfrage abgelehnt wird
+      + Setze Status der Bestellung auf "Abgelehnt"
 
-    + Setze Status der Bestellung auf "Abgelehnt"
+      + Prozess neu ausführen
 
-    + Prozess neu ausführen
+    + *ELSE*
 
-  + *ELSE*
+      + Setze Status der Bestellung auf "Bestellt"
 
-    + Setze Status der Bestellung auf "Bestellt"
+    + *ENDE-WENN*
 
-  + *ENDE-WENN*
+    + *ENDE* Sende Bestellung an Lieferanten
 
-  + *ENDE* Sende Bestellung an Lieferanten
-
-]
+  ],
+  caption: [Sende Bestellung an Lieferanten],
+  supplement: "Pseudocode",
+)
