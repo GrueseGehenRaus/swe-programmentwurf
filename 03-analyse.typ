@@ -202,6 +202,7 @@ Mitarbeiter die Besichtigung durchführen kann.
 
 ]
 
+Im Aktivitätsdiagramm wurden die Funktionen "Ermittle günstigsten Lieferanten" und "Füge Material zu Bestellliste von Lieferanten hinzu" zusammengeführt, da beide Prozesse eng miteinander verkoppelt sind und dementsprechend so übersichtlicher dargstellt werden können.
 
 #pseudocode-list[
 
@@ -353,6 +354,7 @@ Mitarbeiter die Besichtigung durchführen kann.
 
 ]
 
+Die Routine "Erstelle eine Bestellliste für diesen Lieferanten" wurde aufgrund der Struktur des Aktivitätsdiagramms nicht weiter verfolgt, da dadurch die Übersichtlichkeit und Verständlichkeit erheblich eingeschränkt werden würde.
 
 #pseudocode-list[
 
@@ -387,23 +389,27 @@ Mitarbeiter die Besichtigung durchführen kann.
 ]
 
 
+TODO \@SINAN: Im Diagramm "Bestellung erstellen" in "Bestellung erzeugen" ändern
+
 #pseudocode-list[
 
   + *BEGINNE* Erstelle Bestellung
 
   + Bestellung erzeugen
 
-  + *FÜR JEDEN* Artikel *IN* Bestellliste
-
-    + Artikel der Bestellung hinzufügen mit Quantität
-
   + Firmenangaben tätigen
-
-  + Lieferadresse hinzufügen
 
   + Rechnungsadresse hinzufügen
 
-  + Email und Telefonnummer hinzufügen
+  + Lieferadresse hinzufügen
+
+  + Email hinzufügen
+
+  + Telefonnummer hinzufügen
+
+  + *FÜR JEDEN* Artikel *IN* Bestellliste
+
+    + Artikel der Bestellung hinzufügen mit Quantität
 
   + *ENDE* Erstelle Bestellung
 
@@ -430,16 +436,8 @@ Mitarbeiter die Besichtigung durchführen kann.
 
     + Setze Status der Bestellung auf "Bestellt"
 
-    + *WARTE* bis Bestellung geliefert wird
-
-    + Setze Status der Bestellung auf "Abgeschlossen"
-
   + *ENDE-WENN*
 
   + *ENDE* Sende Bestellung an Lieferanten
 
 ]
-
-  supplement: "Pseudocode",
-  caption: [Materialbestellung für Auftrag],
-)
