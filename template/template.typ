@@ -6,6 +6,15 @@
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
 
+#let diagram = path => {
+  let content = read("../" + path).replace(
+    regex("Visual Paradigm Standard\(.*\)"),
+    "",
+  )
+
+  std.image(bytes(content))
+}
+
 #let clean-dhbw(
   title: none,
   authors: (:),
@@ -147,23 +156,32 @@
       columns: (1fr, 1fr),
       align: (left, right),
       row-gutter: 0.5em,
-      smallcaps(text(font: heading-font, size: body-size, context {
-        hydra(
-          1,
-          display: (_, it) => it.body,
-          use-last: true,
-          skip-starting: false,
-        )
-      })),
-      text(font: heading-font, size: body-size, number-type: "lining", context {
-        if in-frontmatter.get() {
-          counter(page).display("i") // roman page numbers for the frontmatter
-        } else {
-          counter(page).display(
-            "1",
-          ) // arabic page numbers for the rest of the document
-        }
-      }),
+      smallcaps(
+        text(
+          font: heading-font,
+          size: body-size,
+          context {
+            hydra(
+              1,
+              display: (_, it) => it.body,
+              use-last: true,
+              skip-starting: false,
+            )
+          },
+        ),
+      ),
+      text(
+        font: heading-font,
+        size: body-size,
+        number-type: "lining",
+        context {
+          if in-frontmatter.get() {
+            counter(page).display("i") // roman page numbers for the frontmatter
+          } else {
+            counter(page).display("1") // arabic page numbers for the rest of the document
+          }
+        },
+      ),
       grid.cell(colspan: 2, line(length: 100%, stroke: 0.5pt)),
     ),
     header-ascent: page-grid,
@@ -221,9 +239,7 @@
   }
 
   in-frontmatter.update(false) // end of frontmatter
-  counter(page).update(
-    0,
-  ) // so the first chapter starts at page 1 (now in arabic numbers)
+  counter(page).update(0) // so the first chapter starts at page 1 (now in arabic numbers)
 
   // ========== DOCUMENT BODY ========================================
 
