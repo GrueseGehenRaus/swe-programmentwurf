@@ -160,9 +160,9 @@ Mitarbeiter die Besichtigung durchführen kann.
 
 == Materialbestellungen für obigen Auftrag durchführen
 
-Das Szenario "Materialbestellungen für obigen Auftrag durchführen" beschreibt den Prozess, wie die Materialanfragen mit dem System anfänglich aufgebaut und schlussendlich versendet werden. 
+Das Szenario "Materialbestellungen für obigen Auftrag durchführen" beschreibt den Prozess, wie die Materialanfragen mit dem System anfänglich aufgebaut und schlussendlich versendet werden.
 
-Auch hier wurde vorerst Pseudocode erstellt, um so die  Erstellung des Diagramms zu vereinfachen. 
+Auch hier wurde vorerst Pseudocode erstellt, um so die  Erstellung des Diagramms zu vereinfachen.
 Aufgrund von Limitation von Visual Paradigm wurden die einzelnen Aktivitäten mit orangenen Kästchen versehen, um die jeweiligen Objektinputs und -outputs darzustellen.
 Zur Übersichtlichkeit wurden einzelne Subfunktionalitäten genauso wie die hier aufgeführten Pseudocode-Funktionen in separaten Diagrammen verfeinert und im Hauptdiagramm mit einer Aktivität zusammengefasst.
 
@@ -467,4 +467,9 @@ TODO \@SINAN: Im Diagramm "Bestellung erstellen" in "Bestellung erzeugen" änder
   ],
   caption: [Sende Bestellung an Lieferanten],
   supplement: "Pseudocode",
+)
+
+#figure(
+    image("diagrams/Analyseklassendiagramm/Material bestellen.svg",height: 100%),
+  caption: [Material Bestellen],
 )
